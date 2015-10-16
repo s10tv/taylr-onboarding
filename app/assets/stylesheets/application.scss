@@ -14,3 +14,74 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+body {
+  font-family: "Cabin", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#backdrop, #blurFade {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#backdrop {
+  background-image: url("/assets/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#blurFade {
+  background: #000000;
+  opacity: 0.7;
+}
+
+.titlebar {
+  background: #4A148C;
+  color: #ffffff;
+}
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.subtitle {
+  margin-top: 5px;
+  font-size: 22px;
+}
+
+#logo {
+  width: 30%;
+  margin-left: -5%;
+}
+
+.taylr-cta {
+  background: #4A148C;
+  color: #ffffff;
+}
+
+.taylr-cta:hover {
+  background: #300467;
+  color: #ffffff;
+}
+
+.showing {
+  display: block;
+}

@@ -1,40 +1,51 @@
 <div class="container" style="text-align: center; max-width: 350px; padding-top: 20px;">
-  <% if @metadata[:icon_url] %>
-    <%= image_tag @metadata[:icon_url], class: "appIcon", style: "margin-bottom: 30px;" %>
-  <% else %>
-    <div style="margin-bottom: 20px"></div>
-  <% end %>
+  <div id="backdrop"></div>
+  <div id="blurFade"></div>
 
+  <div class="modal modal-vcenter showing">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header titlebar">
+          <div class="modal-title">
+            <p>
+              <img id="logo" src="/assets/logo.png" alt="logo" />
+            </p>
+            <p class="subtitle">
+              Expand your social and professional networks.
+            </p>
+          </div>
+        </div>
+        <div class="modal-body">
+          <%= form_tag("/submit", method: "post", style: "text-align: left") do %>
+            <%= label_tag(:first_name, "First Name:") %>
+            <%= text_field_tag :first_name, '', class: "form-control", placeholder: "First Name" %><br />
+            <%= label_tag(:last_name, "Last Name:") %>
+            <%= text_field_tag :last_name, '', class: "form-control", placeholder: "Last Name" %><br />
+            <%= label_tag(:email, "Email Address:") %>
+            <%= email_field_tag :email, '', class: "form-control", placeholder: "Email Address" %><br />
+            
+            <% if ENV["ITC_TOKEN"] %>
+              <% if params[:token] %>
+                <%= hidden_field_tag :token, '', value: params[:token] %>
+              <% else %>
+                <%= label_tag(:token, "Password:") %>
+                <%= text_field_tag :token, '', class: "form-control", placeholder: "Password" %><br />
+              <% end %>
+            <% end %>
 
+            <br />
+            <%= submit_tag "Get Beta Access", class: 'btn btn-lg btn-primary btn-block taylr-cta', id: "submit" %>
+          <% end %>
 
-  <% unless @message %>
-    <h4 class="" style="margin-bottom: 40px;"><%= @metadata[:title] %></h4>
-
-    <%= form_tag("/submit", method: "post", style: "text-align: left") do %>
-      <%= label_tag(:first_name, "First Name:") %>
-      <%= text_field_tag :first_name, '', class: "form-control", placeholder: "First Name" %><br />
-      <%= label_tag(:last_name, "Last Name:") %>
-      <%= text_field_tag :last_name, '', class: "form-control", placeholder: "Last Name" %><br />
-      <%= label_tag(:email, "Email Address:") %>
-      <%= email_field_tag :email, '', class: "form-control", placeholder: "Email Address" %><br />
-      
-      <% if ENV["ITC_TOKEN"] %>
-        <% if params[:token] %>
-          <%= hidden_field_tag :token, '', value: params[:token] %>
-        <% else %>
-          <%= label_tag(:token, "Password:") %>
-          <%= text_field_tag :token, '', class: "form-control", placeholder: "Password" %><br />
-        <% end %>
-      <% end %>
-
-      <br />
-      <%= submit_tag "Get Beta Access", class: 'btn btn-lg btn-primary btn-block', id: "submit" %>
-    <% end %>
-  <% else %>
-    <p class="alert alert-<%= @type %>">
-      <%= @message %>
-    </p>
-  <% end %>
+          <% if @message %>
+            <p class="alert alert-<%= @type %>">
+              <%= @message %>
+            </p>
+          <% end %>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 </div>
 
 <style type="text/css">

@@ -68,6 +68,7 @@ class InviteController < ApplicationController
         @message = "Successfully added you as tester. You'll be notified once the next build is available"
       end
       @type = "success"
+    
     rescue => ex
       if ex.inspect.to_s.include?"EmailExists"
         @message = "Email address is already registered"
@@ -81,10 +82,23 @@ class InviteController < ApplicationController
       end
     end
 
+    mailer.deliver_with_template(
+      from: 'fang@taylrapp.com',
+      to: first_name + ' <' + email + '>',
+      template_id: 139321,
+      template_model: {
+       name: first_name,
+    })
+
     render :index
   end
 
   private
+    def mailer
+      @client ||= Postmark::ApiClient.new(ENV["ITC_TOKEN"])
+      return @client
+    end
+
     def user
       ENV["ITC_USER"] || ENV["FASTLANE_USER"]
     end
