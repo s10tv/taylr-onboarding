@@ -20,6 +20,8 @@ class InviteController < ApplicationController
     first_name = params[:first_name]
     last_name = params[:last_name]
 
+    logger.info "1. #{email} - #{first_name} #{last_name}"
+
     if ENV["ITC_TOKEN"]
       if ENV["ITC_TOKEN"] != params[:token]
         @message = "Invalid password given, please contact the application owner"
@@ -28,6 +30,8 @@ class InviteController < ApplicationController
         return
       end
     end
+
+    logger.info "2. #{email} - #{first_name} #{last_name}"
 
     if email.length == 0
       render :index
@@ -95,7 +99,7 @@ class InviteController < ApplicationController
 
   private
     def mailer
-      @client ||= Postmark::ApiClient.new(ENV["ITC_TOKEN"])
+      @client ||= Postmark::ApiClient.new(ENV["POSTMARK_TOKEN"])
       return @client
     end
 
