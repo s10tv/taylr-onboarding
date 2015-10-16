@@ -28,7 +28,7 @@ body {
 }
 
 #backdrop {
-  background-image: url("/assets/bg.jpg");
+  background-image: image-url("bg.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -67,7 +67,7 @@ body {
   font-size: 22px;
 }
 
-#logo {
+.logo {
   width: 30%;
   margin-left: -5%;
 }
